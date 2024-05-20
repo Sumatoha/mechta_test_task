@@ -4,10 +4,15 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"sync"
 )
+
+type Data struct {
+	A int `json:"a"`
+	B int `json:"b"`
+}
 
 func main() {
 	filename := flag.String("file", "data.json", "JSON file for calculations")
@@ -23,13 +28,8 @@ func main() {
 	fmt.Printf("Total Sum: %d\n", totalSum)
 }
 
-type Data struct {
-	A int `json:"a"`
-	B int `json:"b"`
-}
-
 func readFile(filename string) ([]Data, error) {
-	file, err := ioutil.ReadFile(filename)
+	file, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
